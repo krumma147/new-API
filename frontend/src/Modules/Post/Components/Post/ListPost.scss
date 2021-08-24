@@ -2,8 +2,11 @@
     cursor: pointer;
 }
 
-.postContainer{
-    margin-top: 20px;
+.PostContainer{
+    margin-top: 30px;
+}
+
+.post-content{
     background-color:ffffff;
     padding:30px;
     box-shadow:#dddddd 0px 2px 3px 0px;
@@ -15,4 +18,13 @@
 
 .suggestNews-content{
     padding:15px
+}
+
+.colorbg{
+    background-color:cadetblue;
+    margin-top: 20px;
+}
+
+.Addpostbtn{
+    margin-top:10px;
 }

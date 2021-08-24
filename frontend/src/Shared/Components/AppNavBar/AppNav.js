@@ -15,6 +15,7 @@ import {
   Col,
   Container
 } from 'reactstrap';
+import IMG from '../../../IMG.jpg';
 
 const AppNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +24,8 @@ const AppNav = (props) => {
 
   return (
     <Container>
-        <Col xs='auto'>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">WebTinTuc</NavbarBrand>
+                <NavbarBrand href="/"> <img src={IMG} width="150" /> </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
@@ -74,10 +74,8 @@ const AppNav = (props) => {
                         </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>
-                    <NavbarText>Simple Text</NavbarText>
                 </Collapse>
             </Navbar>
-        </Col>
     </Container>
   );
 }

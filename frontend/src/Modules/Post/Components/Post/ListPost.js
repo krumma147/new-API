@@ -5,6 +5,8 @@ import { Container, Row, Col,UncontrolledDropdown,
     DropdownMenu,
     DropdownItem, } from 'reactstrap';
 import './ListPost.scss'
+import AddPost from '../../AddPost/AddPost';
+import SlideShow from '../../SlideShow/slideshow';
 
 class ListPost extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class ListPost extends Component {
             author: 'author 99',
             content: 'Shared Components AppHeader AppHeader.js',
             post:[],
+            gotContent:'',
         }
     }
 
@@ -29,13 +32,15 @@ class ListPost extends Component {
     }
 
     onSubmit = () => {
-        const data = {
-            author: this.state.author,
-            content: this.state.content
-        }
-       PostService.createPost(data).then(res => {
-           console.log('thanh cong', res.data);
-       })
+    //     const data = {
+    //         author: this.state.author,
+    //         content: this.state.content
+    //     }
+    //    PostService.createPost(data).then(res => {
+    //        console.log('thanh cong', res.data);
+    //    })
+        const content = this.state.gotContent;
+        console.log(content);
     }
 
     callAPI = () =>{
@@ -50,17 +55,46 @@ class ListPost extends Component {
         post.map((e)=>console.log(e));
     }
 
+    postEdit = (e, data) =>{
+        this.setState({gotContent:data});
+        console.log('edit', data);
+        const api = 'http://127.0.0.1:4000/api/post/post/create';
+        fetch(api,{
+            method: 'POST',
+            body:JSON.stringify({
+                author:'author unknown',
+                content:data
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+        .then(response =>response.json())
+        .then(data=>{
+            this.callAPI();
+            this.setState({post:data})
+        })
+    }
+
+    deleteBTN = () =>{
+        console.log('delete');
+    }
+
+    editBTN = () =>{
+        console.log('edit');
+    }
+
     render() {
         let {post} = this.state;
         const suggest = 
             (
-                <Container className>
+                <Container className='suggestNews-container'>
                     <Row>
                         <Col><b>Tin Mới</b></Col>
                         <Col>Đọc Nhiều</Col>
                     </Row>
 
-                    <Row className='suggestNews-container'>
+                    <Row >
                     {post.map(e=>(
                     <Container className='suggestNews-content'>
                         <Row>
@@ -77,7 +111,7 @@ class ListPost extends Component {
         const Post = post.map((e,i)=>{
             return(
                 <Container>
-                    <Row key={i} className='postContainer'>
+                    <Row key={i} className='post-content'>
                         <Col xs={2}>
                             {e.author}  
                         </Col>
@@ -93,12 +127,14 @@ class ListPost extends Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <span class="material-icons">edit</span>
+                                        <span class="material-icons" onClick={this.editBTN}>edit</span>
                                     </DropdownItem>
-                                    <DropdownItem>
+                                    
+                                    <DropdownItem divider />
+
+                                    <DropdownItem onClick={this.deleteBTN}>
                                         <span class="material-icons">delete</span>
                                     </DropdownItem>
-                                    <DropdownItem divider />
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                             
@@ -107,16 +143,27 @@ class ListPost extends Component {
                 </Container>
             )
         })
-
+ 
         return (
             <Fragment>
-                <Container >
-                    <button onClick={this.onSubmit}> Them bai viet </button>
-                    <button onClick={this.showData}> Hien các bài post </button> 
-                    <Row>
+                <Container>
+
+                    <SlideShow />
+
+                    <Row className='PostContainer'>
                         <Col xs={7}>{Post}</Col>
 
                         <Col xs={5}>{suggest}</Col>
+                    </Row>
+
+                    <Row >
+                        <Col xs={5}></Col>
+                    
+                        <Col className='Addpostbtn'>
+                            <AddPost submitBtn={this.onSubmit} postEdit={this.postEdit} />
+                        </Col>  
+
+                        <Col xs={5}></Col>
                     </Row>
                 </Container>
             </Fragment>
