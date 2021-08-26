@@ -7,6 +7,7 @@ import { Container, Row, Col,UncontrolledDropdown,
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
 import SlideShow from '../../SlideShow/slideshow';
+import EditPost from '../../EditPost/EditPost'
 
 class ListPost extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class ListPost extends Component {
             content: 'Shared Components AppHeader AppHeader.js',
             post:[],
             gotContent:'',
+            PostStatus:false,
         }
     }
 
@@ -29,18 +31,6 @@ class ListPost extends Component {
             PostService.getPost(this.state.id).then(r => console.log(r.data))
         });
         this.callAPI();
-    }
-
-    onSubmit = () => {
-    //     const data = {
-    //         author: this.state.author,
-    //         content: this.state.content
-    //     }
-    //    PostService.createPost(data).then(res => {
-    //        console.log('thanh cong', res.data);
-    //    })
-        const content = this.state.gotContent;
-        console.log(content);
     }
 
     callAPI = () =>{
@@ -56,6 +46,7 @@ class ListPost extends Component {
     }
 
     postEdit = (e, data) =>{
+        e.preventDefault()
         this.setState({gotContent:data});
         console.log('edit', data);
         const api = 'http://127.0.0.1:4000/api/post/post/create';
@@ -69,23 +60,36 @@ class ListPost extends Component {
                 'Content-type': 'application/json; charset=UTF-8',
             }
         })
-        .then(response =>response.json())
         .then(data=>{
             this.callAPI();
             this.setState({post:data})
         })
     }
 
-    deleteBTN = () =>{
-        console.log('delete');
+    deleteBTN = (e,i) =>{
+        e.preventDefault()
+        const {post} = this.state;
+        console.log('delete' , post[i].id);
+        const id = post[i].id;
+        const api = 'http://127.0.0.1:4000/api/post/post/delete?id';
+        fetch(`${api}=${id}`)
+            .then(data=>{
+                this.callAPI();
+                this.setState({post: data})
+            })
     }
 
-    editBTN = () =>{
-        console.log('edit');
+    editBTN = (e,i) =>{
+        this.setState({PostStatus:true})
+        const {post} = this.state;
+        const content = post[i].content;
+        const id = post[i].id;
+        console.log('edit', content);
+        
     }
 
     render() {
-        let {post} = this.state;
+        let {post, PostStatus} = this.state;
         const suggest = 
             (
                 <Container className='suggestNews-container'>
@@ -126,18 +130,19 @@ class ListPost extends Component {
                                 <span class="material-icons">more_vert</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
-                                        <span class="material-icons" onClick={this.editBTN}>edit</span>
-                                    </DropdownItem>
+                                    {/* <DropdownItem onClick={e=>this.editBTN(e,i)}>
+                                        <span class="material-icons">edit</span>
+                                    </DropdownItem> */}
+
+                                    <EditPost onClick={e=>this.editBTN} />
                                     
                                     <DropdownItem divider />
 
-                                    <DropdownItem onClick={this.deleteBTN}>
+                                    <DropdownItem onClick={e=>this.deleteBTN(e,i)}>
                                         <span class="material-icons">delete</span>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-                            
                         </Col>
                     </Row>              
                 </Container>
@@ -160,7 +165,7 @@ class ListPost extends Component {
                         <Col xs={5}></Col>
                     
                         <Col className='Addpostbtn'>
-                            <AddPost submitBtn={this.onSubmit} postEdit={this.postEdit} />
+                            <AddPost PostStatus={PostStatus} postEdit={this.postEdit} />
                         </Col>  
 
                         <Col xs={5}></Col>
