@@ -3,11 +3,12 @@ import PostService from "../../Shared/PostService";
 import { Container, Row, Col,UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem, } from 'reactstrap';
+    DropdownItem,
+    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button
+} from 'reactstrap';
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
 import SlideShow from '../../SlideShow/slideshow';
-import EditPost from '../../EditPost/EditPost'
 
 class ListPost extends Component {
     constructor(props) {
@@ -19,6 +20,9 @@ class ListPost extends Component {
             post:[],
             gotContent:'',
             PostStatus:false,
+            modal: false,
+            editPostContent:'',
+            editPostID:'',
         }
     }
 
@@ -79,17 +83,49 @@ class ListPost extends Component {
             })
     }
 
-    editBTN = (e,i) =>{
-        this.setState({PostStatus:true})
+    toggle = (e,i) =>{
         const {post} = this.state;
         const content = post[i].content;
         const id = post[i].id;
-        console.log('edit', content);
-        
+        const author = post[i].author;
+        this.setState({
+            modal: !this.state.modal,
+            editPostContent: content,
+            editPostID:id,
+            editPostAuthor:author,
+        })
+    }
+
+    onchangeEditPost = (e) =>{
+        this.setState({editPostContent:e.target.value});
+    }
+
+    submitChange=(e)=>{
+        const {editPostContent,editPostID, editPostAuthor, modal} = this.state;
+        console.log(editPostContent, editPostID)
+        const api = 'http://127.0.0.1:4000/api/post/post/update?id'
+        fetch(`${api}=${editPostID}`,{
+            method: 'POST',
+            body:JSON.stringify({
+                author:editPostAuthor,
+                content:editPostContent,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+            .then(data=>{
+                this.callAPI();
+                this.setState({
+                    post:data,
+                    modal: !modal,
+                })
+            })
     }
 
     render() {
-        let {post, PostStatus} = this.state;
+        let {post, PostStatus, modal, editPostContent} = this.state;
+        post = Object.values(post);
         const suggest = 
             (
                 <Container className='suggestNews-container'>
@@ -112,6 +148,21 @@ class ListPost extends Component {
                 </Container>
             );
 
+        const editPostForm = (
+            <div>
+                <Modal isOpen={modal} toggle={(e)=>this.toggle(e,0)} className>
+                    <ModalHeader toggle={(e)=>this.toggle(e,0)}>Modal title</ModalHeader>
+                    <ModalBody>
+                        <Input type="textarea" placeholder={'Something you want to share'} name="post-edit" defaultValue={editPostContent} onChange={e=>this.onchangeEditPost(e)} rows={5} />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={e=>this.submitChange(e)}>Submit</Button>
+                        <Button color="secondary" onClick={(e)=>this.toggle(e,0)}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+            );
+
         const Post = post.map((e,i)=>{
             return(
                 <Container>
@@ -130,11 +181,9 @@ class ListPost extends Component {
                                 <span class="material-icons">more_vert</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    {/* <DropdownItem onClick={e=>this.editBTN(e,i)}>
+                                    <DropdownItem onClick={(e)=>this.toggle(e,i)}>
                                         <span class="material-icons">edit</span>
-                                    </DropdownItem> */}
-
-                                    <EditPost onClick={e=>this.editBTN} />
+                                    </DropdownItem>
                                     
                                     <DropdownItem divider />
 
@@ -171,6 +220,7 @@ class ListPost extends Component {
                         <Col xs={5}></Col>
                     </Row>
                 </Container>
+                {editPostForm}
             </Fragment>
         );
     }
