@@ -11,7 +11,7 @@ export default function AddPost(props){
     return (
         <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>
-                <Button color="danger" onClick={toggle}>Them bai viet</Button>
+                <Input type="text" onClick={toggle} placeholder={'What do ya thinking?'}></Input>
             </Form>
             <Modal isOpen={modal} toggle={toggle} className>
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>

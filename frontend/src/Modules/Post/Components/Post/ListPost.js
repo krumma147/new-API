@@ -4,7 +4,7 @@ import { Container, Row, Col,UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button
+    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button,
 } from 'reactstrap';
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
@@ -171,8 +171,13 @@ class ListPost extends Component {
                             {e.author}  
                         </Col>
 
-                        <Col xs={9}>
+                        <Col xs={7}>
                             {e.content} 
+                        </Col>
+
+                        <Col xs={2}>
+                            <sub> {e.comments.length} </sub>
+                            <span class="material-icons">comment</span>
                         </Col>
 
                         <Col xs={1}>
@@ -204,13 +209,7 @@ class ListPost extends Component {
 
                     <SlideShow />
 
-                    <Row className='PostContainer'>
-                        <Col xs={7}>{Post}</Col>
-
-                        <Col xs={5}>{suggest}</Col>
-                    </Row>
-
-                    <Row >
+                    <Row style={{ display: (post == [])? 'none' : 'flex' }} >
                         <Col xs={5}></Col>
                     
                         <Col className='Addpostbtn'>
@@ -219,6 +218,14 @@ class ListPost extends Component {
 
                         <Col xs={5}></Col>
                     </Row>
+
+                    <Row className='PostContainer'>
+                        <Col xs={7}>{Post}</Col>
+
+                        <Col xs={5}>{suggest}</Col>
+                    </Row>
+
+                    
                 </Container>
                 {editPostForm}
             </Fragment>

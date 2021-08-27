@@ -7,10 +7,20 @@
     line-height:20px;
 }
 
-.Footer-content-container{
+.Footer-info-container{
     padding:15px;
     margin:0 15px;
     text-align: center;
+    color:#3333;
+}
+
+.Footer-catelist-container{
+    color:#254f5f;
+    font-size:13px;
+    line-height:20px;
+    margin:0 0 20px;
+    padding:0 0 10px;
+    text-transform:uppercase;
 }
 
 .right{
@@ -18,5 +28,27 @@
     font-size:13px;
     line-height:20px;
     text-align:right;
-    font-weight: 700;
+}
+
+.right~Row:first-child{
+    color:#00739f;
+    margin: 0 0 5px;
+}
+
+.hotline{
+    color:#009cd7;
+    font-family:NotoSerif;
+    font-size:13px;
+    font-weight:700;
+    line-height:20px;
+    margin:12px 0px 0px;
+    text-transform:uppercase;
+}
+
+.hovered{
+    color:#333333 ;
+}
+
+.hovered:hover{
+    color:#009cd7;
 }

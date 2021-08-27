@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import {Container, Row, Col} from 'reactstrap'
 import '../AppFooter/AppFooter.scss'
 import IMG from "../../../IMG.jpg";
+import follow from '../../../follow.png'
 
 export default function AppFooter(props){
     return(
         <Container className="FooterContainer">
-            <Row className="Footer-content-container">
+            <Row className="Footer-catelist-container">
                 <Col>
                     <Row>Tin 24h</Row>
                     <Row>Tin 24h</Row>
@@ -38,16 +39,17 @@ export default function AppFooter(props){
                     <Row>Game</Row>
                 </Col>
                 
-                <Col>
-                    <Row>HotLine</Row>
-                    <Row>HotLine</Row>
-                    <Row>HotLine</Row>
-                    <Row>HotLine</Row>
+                <Col className='hotline'>
+                    <Row className='hovered'>HotLine</Row>
+                    <Row>1900100Co</Row>
+                    <Row className='hovered'>HotLine</Row>
+                    <Row>1900100co</Row>
+                    <Row><a href='#'> <img src={follow} /> </a></Row>
                 </Col>
 
             </Row>
 
-            <Row className="Footer-content-container" >
+            <Row className="Footer-info-container" >
                 <Col> 
                     <Row><img src={IMG} width={200} /></Row>
                     <Row>sth sth sth</Row>
