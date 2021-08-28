@@ -1,5 +1,5 @@
 .FooterContainer{
-    margin-top: 10px;
+    margin-top: 15px;
     background-color:#ffffff;
     color:#333333;
     font-family:NotoSerif;
@@ -8,31 +8,30 @@
 }
 
 .Footer-info-container{
-    padding:15px;
-    margin:0 15px;
     text-align: center;
-    color:#3333;
+    color:#333333;
+    margin-top:20px;
 }
 
 .Footer-catelist-container{
-    color:#254f5f;
+    color:#333333;
     font-size:13px;
     line-height:20px;
-    margin:0 0 20px;
+    margin: 0 0 20px;
     padding:0 0 10px;
     text-transform:uppercase;
+    list-style-type:none;
+}
+
+.catelist{
+    list-style-type:none;
 }
 
 .right{
-    color:#3333;
+    color:#333333;
     font-size:13px;
     line-height:20px;
     text-align:right;
-}
-
-.right~Row:first-child{
-    color:#00739f;
-    margin: 0 0 5px;
 }
 
 .hotline{

@@ -4,7 +4,7 @@ import { Container, Row, Col,UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button,
+    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button, Badge
 } from 'reactstrap';
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
@@ -176,7 +176,7 @@ class ListPost extends Component {
                         </Col>
 
                         <Col xs={2}>
-                            <sub> {e.comments.length} </sub>
+                            <Badge> {e.comments.length} </Badge>
                             <span class="material-icons">comment</span>
                         </Col>
 

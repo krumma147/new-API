@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Container, Row, Col} from 'reactstrap'
+import {Container, Row, Col, List, ListInlineItem} from 'reactstrap'
 import '../AppFooter/AppFooter.scss'
 import IMG from "../../../IMG.jpg";
 import follow from '../../../follow.png'
@@ -9,34 +9,34 @@ export default function AppFooter(props){
         <Container className="FooterContainer">
             <Row className="Footer-catelist-container">
                 <Col>
-                    <Row>Tin 24h</Row>
-                    <Row>Tin 24h</Row>
-                    <Row>Tin 24h</Row>
-                    <Row>Tin 24h</Row>
-                    <Row>Tin 24h</Row>
+                    <li>Tin 24h</li>
+                    <li>Tin 24h</li>
+                    <li>Tin 24h</li>
+                    <li>Tin 24h</li>
+                    <li>Tin 24h</li>
                 </Col>
 
                 <Col>
-                    <Row>Thoi su</Row>
-                    <Row>Thoi su</Row>
-                    <Row>Thoi su</Row>
-                    <Row>Thoi su</Row>
-                    <Row>Thoi su</Row>
+                    <li>Thoi su</li>
+                    <li>Thoi su</li>
+                    <li>Thoi su</li>
+                    <li>Thoi su</li>
+                    <li>Thoi su</li>
                 </Col>
 
                 <Col>
-                    <Row>Gioi tre</Row>
-                    <Row>Gioi tre</Row>
-                    <Row>Gioi tre</Row>
-                    <Row>Gioi tre</Row>
-                    <Row>Gioi tre</Row>
+                    <li>Gioi tre</li>
+                    <li>Gioi tre</li>
+                    <li>Gioi tre</li>
+                    <li>Gioi tre</li>
+                    <li>Gioi tre</li>
                 </Col>
 
                 <Col>
-                    <Row>Game</Row>
-                    <Row>Game</Row>
-                    <Row>Game</Row>
-                    <Row>Game</Row>
+                    <li>Game</li>
+                    <li>Game</li>
+                    <li>Game</li>
+                    <li>Game</li>
                 </Col>
                 
                 <Col className='hotline'>
@@ -49,33 +49,29 @@ export default function AppFooter(props){
 
             </Row>
 
-            <Row className="Footer-info-container" >
+            <Row className="Footer-info-container Footer-catelist-container" >
                 <Col> 
                     <Row><img src={IMG} width={200} /></Row>
                     <Row>sth sth sth</Row>
                     <Row>sth sth sth</Row>
                 </Col>
 
-                <Col className="right">
-                    <Row>
-                        <Col xs="auto"><a href='#'>Dat bao</a></Col>
-                        <Col xs="auto"><a href='#'>Quang cao</a></Col>
-                        <Col xs="auto"><a href='#'>RSS</a></Col>
-                        <Col xs="auto"><a href='#'>Toa soan</a></Col>
-                        <Col xs="auto"><a href='#'>Chinh sach</a></Col>
-                    </Row>
+                <Col>
+                    <List type="inline" className="right">
+                        <ListInlineItem xs="auto"><a href='#'>Dat bao</a></ListInlineItem>
+                        <ListInlineItem xs="auto"><a href='#'>Quang cao</a></ListInlineItem>
+                        <ListInlineItem xs="auto"><a href='#'>RSS</a></ListInlineItem>
+                        <ListInlineItem xs="auto"><a href='#'>Toa soan</a></ListInlineItem>
+                        <ListInlineItem xs="auto"><a href='#'>Chinh sach</a></ListInlineItem>
+                    </List>
 
-                    <Row>
-                        <Col xs={4}></Col>
-                        <Col xs={7}>
-                        <Row >Tổng biên tập:<strong>Nguyễn Quang Thông</strong></Row>
-                        <Row >Tổng biên tập:<strong>Nguyễn Quang Thông</strong></Row>
-                        <Row >Tổng biên tập:<strong>Nguyễn Quang Thông</strong></Row>
-                        <Row >Tổng biên tập:<strong>Nguyễn Quang Thông</strong></Row>
-                        <Row >Tổng biên tập:<strong>Nguyễn Quang Thông</strong></Row>
-                        </Col>
-                        <Col xs={1}></Col>
-                    </Row>
+                    <div className="right">
+                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
+                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
+                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
+                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
+                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
+                    </div>
                 </Col>
             </Row>
         </Container>
