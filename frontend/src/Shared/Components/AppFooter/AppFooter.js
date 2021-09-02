@@ -49,7 +49,7 @@ export default function AppFooter(props){
 
             </Row>
 
-            <Row className="Footer-info-container Footer-catelist-container" >
+            <Row className="Footer-info-container" >
                 <Col> 
                     <Row><img src={IMG} width={200} /></Row>
                     <Row>sth sth sth</Row>

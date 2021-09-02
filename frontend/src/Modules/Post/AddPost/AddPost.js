@@ -11,12 +11,12 @@ export default function AddPost(props){
     return (
         <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>
-                <Input type="text" onClick={toggle} placeholder={'What do ya thinking?'}></Input>
+                <Input type="text" onClick={toggle} placeholder={'Have something to share?'}></Input>
             </Form>
             <Modal isOpen={modal} toggle={toggle} className>
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                 <ModalBody>
-                    <Input type="textarea" placeholder={'Something you want to share'} name="post" value={post} onChange={onChangePost}  rows={5} />
+                    <Input type="textarea" placeholder={'Something you want to share'} name="post" value={post} onChange={onChangePost}/>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={e => props.postEdit(e, post)}>Submit</Button>

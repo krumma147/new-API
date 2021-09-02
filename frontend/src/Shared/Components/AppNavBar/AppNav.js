@@ -16,6 +16,7 @@ import {
   Container
 } from 'reactstrap';
 import IMG from '../../../IMG.jpg';
+import './AppNav.scss'
 
 const AppNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,12 +24,13 @@ const AppNav = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Container>
+      <Container className="center">
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/"> <img src={IMG} width="150" /> </NavbarBrand>
+                {/* <img src={IMG} width="150" /> */}
+                <NavbarBrand href="/"> <a href="#">Brand</a> </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                <Nav className="mr-auto" navbar>
+                <Nav className="mr-auto">
                     <NavItem>
                         <NavLink href="#">Kinh Tế</NavLink>
                     </NavItem>

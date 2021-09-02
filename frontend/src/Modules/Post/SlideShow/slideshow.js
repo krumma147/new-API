@@ -72,6 +72,7 @@ const SlideShow = (props) => {
               max-width: 100%;
               height: 300px;
               background: black;
+              margin-top:20px;
             }`
         }
       </style>

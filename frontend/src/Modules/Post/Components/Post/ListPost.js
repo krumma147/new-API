@@ -4,11 +4,13 @@ import { Container, Row, Col,UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button, Badge
+    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button, Badge,
+    Collapse
 } from 'reactstrap';
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
 import SlideShow from '../../SlideShow/slideshow';
+import CMT from '../Cmt/Cmt'
 
 class ListPost extends Component {
     constructor(props) {
@@ -23,6 +25,8 @@ class ListPost extends Component {
             modal: false,
             editPostContent:'',
             editPostID:'',
+            collapse:false,
+            cmt:[],
         }
     }
 
@@ -35,6 +39,7 @@ class ListPost extends Component {
             PostService.getPost(this.state.id).then(r => console.log(r.data))
         });
         this.callAPI();
+        this.callCmtApi()
     }
 
     callAPI = () =>{
@@ -42,6 +47,13 @@ class ListPost extends Component {
         fetch(API)
             .then(response => response.json())
             .then(e=>this.setState({post:e}))
+    }
+
+    callCmtApi = () => {
+        const api ='http://127.0.0.1:4000/api/comment/comment/list';
+        fetch(api)
+            .then(response => response.json())
+            .then(e=>this.setState({cmt:e}))
     }
 
     showData = () =>{
@@ -52,6 +64,7 @@ class ListPost extends Component {
     postEdit = (e, data) =>{
         e.preventDefault()
         this.setState({gotContent:data});
+        const {modal} = this.state;
         console.log('edit', data);
         const api = 'http://127.0.0.1:4000/api/post/post/create';
         fetch(api,{
@@ -66,7 +79,7 @@ class ListPost extends Component {
         })
         .then(data=>{
             this.callAPI();
-            this.setState({post:data})
+            this.setState({post:data,modal: !modal})
         })
     }
 
@@ -123,8 +136,15 @@ class ListPost extends Component {
             })
     }
 
+    showCmt = (e,i) =>{
+        const {collapse, cmt} = this.state;
+        this.setState({collapse: !collapse});
+        console.log(cmt);
+        // cmt.map(e=>console.log(e))
+    }
+
     render() {
-        let {post, PostStatus, modal, editPostContent} = this.state;
+        let {post, PostStatus, modal, editPostContent, collapse, cmt} = this.state;
         post = Object.values(post);
         const suggest = 
             (
@@ -175,7 +195,7 @@ class ListPost extends Component {
                             {e.content} 
                         </Col>
 
-                        <Col xs={2}>
+                        <Col xs={2} onClick={e=>this.showCmt(e,i)} >
                             <Badge> {e.comments.length} </Badge>
                             <span class="material-icons">comment</span>
                         </Col>
@@ -198,6 +218,12 @@ class ListPost extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Col>
+                    </Row>
+                    
+                    <Row>
+                        <Collapse isOpen={collapse}>
+                            <CMT Cmt={cmt} />
+                        </Collapse>    
                     </Row>              
                 </Container>
             )
@@ -209,7 +235,7 @@ class ListPost extends Component {
 
                     <SlideShow />
 
-                    <Row style={{ display: (post == [])? 'none' : 'flex' }} >
+                    <Row style={{ display: (post.length <= 0)? 'none' : 'flex' }} >
                         <Col xs={5}></Col>
                     
                         <Col className='Addpostbtn'>
