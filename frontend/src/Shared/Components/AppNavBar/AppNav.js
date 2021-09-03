@@ -24,40 +24,40 @@ const AppNav = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-      <Container className="center">
+      <div className='divcontainer'>
             <Navbar color="light" light expand="md">
                 {/* <img src={IMG} width="150" /> */}
-                <NavbarBrand href="/"> <a href="#">Brand</a> </NavbarBrand>
+                <NavbarBrand href="/"> Brand </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                <Nav className="mr-auto">
+                <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="#">Kinh Tế</NavLink>
+                        <NavLink href="#">Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Pháp Luật</NavLink>
+                        <NavLink href="#">Product</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Văn Hóa</NavLink>
+                        <NavLink href="#">About</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Giáo Dục</NavLink>
+                        <NavLink href="#">Categories</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Thể Thao</NavLink>
+                        <NavLink href="#">Blogs</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Quân Sự</NavLink>
+                        <NavLink href="#">News</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Khoa Học</NavLink>
+                        <NavLink href="#">LOGIN</NavLink>
                     </NavItem>
-                    <NavItem>
+                    {/* <NavItem>
                         <NavLink href="#">Công Nghệ</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Y Tế</NavLink>
-                    </NavItem>
+                        <NavLink href="#">Y Tế</NavLink> */}
+                    {/* </NavItem> */}
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
                         Khác
@@ -78,7 +78,7 @@ const AppNav = (props) => {
                 </Nav>
                 </Collapse>
             </Navbar>
-    </Container>
+    </div>
   );
 }
 

@@ -6,6 +6,7 @@ import Customer from '../../../Modules/Customer/Customer';
 import Post from '../../../Modules/Post/Post';
 import AppNav from '../AppNavBar/AppNav';
 import AppFooter from '../AppFooter/AppFooter'
+import Test from '../AppFooter/Test'
 class App extends React.Component {
     render() {
         const { path } = this.props.match;
@@ -18,7 +19,7 @@ class App extends React.Component {
                     <Route path={`${path}/customer`} component={Customer} />
                     <Route path={`${path}/post`} component={Post} />
                 </Switch>
-                <AppFooter />
+                <Test />
             </div>
         );
     }

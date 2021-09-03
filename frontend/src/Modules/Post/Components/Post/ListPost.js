@@ -203,7 +203,7 @@ class ListPost extends Component {
                         <Col xs={1}>
                             <UncontrolledDropdown inNavbar>
                                 <DropdownToggle nav>
-                                <span class="material-icons">more_vert</span>
+                                    <span class="material-icons">more_vert</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem onClick={(e)=>this.toggle(e,i)}>
@@ -250,8 +250,6 @@ class ListPost extends Component {
 
                         <Col xs={5}>{suggest}</Col>
                     </Row>
-
-                    
                 </Container>
                 {editPostForm}
             </Fragment>
