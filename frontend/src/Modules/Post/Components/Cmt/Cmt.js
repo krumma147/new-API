@@ -16,14 +16,14 @@ export default function CMT(props){
                             <span class="material-icons">more_vert</span>
                         </DropdownToggle>
                         <DropdownMenu right>
-                            <DropdownItem onClick>
+                            <DropdownItem onClick={e=>props.EditCmtBtn(e,i)}>
                                 <span class="material-icons">edit</span>
                             </DropdownItem>
                                     
                             <DropdownItem divider />
 
-                            <DropdownItem onClick>
-                                <span class="material-icons">delete</span>
+                            <DropdownItem onClick={e=>props.DeleteCmtBtn(e,i)}>
+                                <span class="material-icons" >delete</span>
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>

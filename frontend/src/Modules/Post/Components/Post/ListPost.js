@@ -11,6 +11,7 @@ import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
 import SlideShow from '../../SlideShow/slideshow';
 import CMT from '../Cmt/Cmt'
+import AddCmt from '../../AddCmt/AddCmt'
 
 class ListPost extends Component {
     constructor(props) {
@@ -27,6 +28,7 @@ class ListPost extends Component {
             editPostID:'',
             collapse:false,
             cmt:[],
+            user:'author unknown',
         }
     }
 
@@ -56,13 +58,8 @@ class ListPost extends Component {
             .then(e=>this.setState({cmt:e}))
     }
 
-    showData = () =>{
-        let {post} = this.state;
-        post.map((e)=>console.log(e));
-    }
-
     postEdit = (e, data) =>{
-        e.preventDefault()
+        e.preventDefault();
         this.setState({gotContent:data});
         const {modal} = this.state;
         console.log('edit', data);
@@ -71,7 +68,7 @@ class ListPost extends Component {
             method: 'POST',
             body:JSON.stringify({
                 author:'author unknown',
-                content:data
+                content:data,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -122,6 +119,7 @@ class ListPost extends Component {
             body:JSON.stringify({
                 author:editPostAuthor,
                 content:editPostContent,
+                comments: ["7MNQ6ZET"]
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -139,13 +137,64 @@ class ListPost extends Component {
     showCmt = (e,i) =>{
         const {collapse, cmt} = this.state;
         this.setState({collapse: !collapse});
-        console.log(cmt);
-        // cmt.map(e=>console.log(e))
+        // console.log(cmt);
+    }
+
+    AddCmtBtn = (e,data) =>{
+        e.preventDefault();
+        const {user} = this.state;
+        console.log('cmt input:', data);
+        const api = 'http://127.0.0.1:4000/api/comment/comment/create';
+        fetch(api,{
+            method: 'POST',
+            body:JSON.stringify({
+                author:user,
+                text:data,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+        .then(data=>{
+            this.callCmtApi();
+            this.setState({cmt:data});
+        })
+    }
+
+    EditCmtBtn = (e,i) =>{
+        e.preventDefault();
+        const {cmt} = this.state;
+        console.log('Edit', i);
+        const api = 'http://127.0.0.1:4000/api/comment/comment/update?id';
+        const id = cmt[i].id;
+        // fetch(`${api}=${id}`,{
+        //     method: 'POST',
+        //     body:JSON.stringify({
+                
+        //     }),
+        //     headers: {
+        //         'Content-type': 'application/json; charset=UTF-8',
+        //     }
+        // })
+    }
+
+    DeleteCmtBtn = (e,i) =>{
+        e.preventDefault();
+        const {cmt}=this.state;
+        console.log('Delete', cmt[i]);
+        const id = cmt[i].id;
+        const api='http://127.0.0.1:4000/api/comment/comment/delete?id';
+        fetch(`${api}=${id}`)
+            .then(data=>{
+                this.callCmtApi();
+                this.setState({cmt:data});
+            })
     }
 
     render() {
         let {post, PostStatus, modal, editPostContent, collapse, cmt} = this.state;
         post = Object.values(post);
+        cmt = Object.values(cmt);
         const suggest = 
             (
                 <Container className='suggestNews-container'>
@@ -220,11 +269,12 @@ class ListPost extends Component {
                         </Col>
                     </Row>
                     
-                    <Row>
+                    <section>
                         <Collapse isOpen={collapse}>
-                            <CMT Cmt={cmt} />
+                            <CMT EditCmtBtn={this.EditCmtBtn} DeleteCmtBtn={this.DeleteCmtBtn} Cmt={cmt} />
+                            <AddCmt AddCmtBtn={this.AddCmtBtn} />
                         </Collapse>    
-                    </Row>              
+                    </section>              
                 </Container>
             )
         })
@@ -239,7 +289,7 @@ class ListPost extends Component {
                         <Col xs={5}></Col>
                     
                         <Col className='Addpostbtn'>
-                            <AddPost PostStatus={PostStatus} postEdit={this.postEdit} />
+                            <AddPost postEdit={this.postEdit} />
                         </Col>  
 
                         <Col xs={5}></Col>

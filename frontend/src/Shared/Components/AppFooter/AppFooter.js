@@ -1,79 +1,92 @@
 import React, { useState } from 'react';
-import {Container, Row, Col, List, ListInlineItem} from 'reactstrap'
-import '../AppFooter/AppFooter.scss'
-import IMG from "../../../IMG.jpg";
-import follow from '../../../follow.png'
+import {
+    Col,
+    Row,
+    Container
+  } from 'reactstrap';
 
-export default function AppFooter(props){
+export default function AppFooter() {
+    const linklist = ['Link 1', 'Link 2', 'Link 3', 'Link 4'];
+    const renedrLinks = linklist.map(e=>{
+        return(
+            <li>
+                <a href="#" class="btn text-light btn-floating m-1">{e}</a>
+            </li>
+        )
+    })
+
     return(
-        <Container className="FooterContainer">
-            <Row className="Footer-catelist-container">
-                <Col>
-                    <li>Tin 24h</li>
-                    <li>Tin 24h</li>
-                    <li>Tin 24h</li>
-                    <li>Tin 24h</li>
-                    <li>Tin 24h</li>
-                </Col>
+        <footer class="bg-dark text-center text-white">
+            <Container class="p-4">
+                <section class="mb-4">
+                    {/* <!-- Facebook --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
 
-                <Col>
-                    <li>Thoi su</li>
-                    <li>Thoi su</li>
-                    <li>Thoi su</li>
-                    <li>Thoi su</li>
-                    <li>Thoi su</li>
-                </Col>
+                    {/* <!-- Twitter --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
 
-                <Col>
-                    <li>Gioi tre</li>
-                    <li>Gioi tre</li>
-                    <li>Gioi tre</li>
-                    <li>Gioi tre</li>
-                    <li>Gioi tre</li>
-                </Col>
+                    {/* <!-- Google --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
 
-                <Col>
-                    <li>Game</li>
-                    <li>Game</li>
-                    <li>Game</li>
-                    <li>Game</li>
-                </Col>
+                    {/* <!-- Instagram --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    {/* <!-- Linkedin --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+
+                    {/* <!-- Github --> */}
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </section>
                 
-                <Col className='hotline'>
-                    <Row className='hovered'>HotLine</Row>
-                    <Row>1900100Co</Row>
-                    <Row className='hovered'>HotLine</Row>
-                    <Row>1900100co</Row>
-                    <Row><a href='#'> <img src={follow} /> </a></Row>
-                </Col>
+                <section>
+                    <Row>
+                        <Col xs='12' sm="6" md="3" >
+                            <h5 class="text-uppercase">Links</h5>
 
-            </Row>
+                            <ul class="list-unstyled mb-0">
+                                {renedrLinks}
+                            </ul>
+                        </Col>
+                        <Col xs='12' sm="6" md="3">
+                            <h5 class="text-uppercase">Links</h5>
 
-            <Row className="Footer-info-container" >
-                <Col> 
-                    <Row><img src={IMG} width={200} /></Row>
-                    <Row>sth sth sth</Row>
-                    <Row>sth sth sth</Row>
-                </Col>
+                            <ul class="list-unstyled mb-0">
+                                {renedrLinks}
+                            </ul>
+                        </Col>
+                        <Col xs='12' sm="6" md="3">
+                            <h5 class="text-uppercase">Links</h5>
 
-                <Col>
-                    <List type="inline" className="right">
-                        <ListInlineItem xs="auto"><a href='#'>Dat bao</a></ListInlineItem>
-                        <ListInlineItem xs="auto"><a href='#'>Quang cao</a></ListInlineItem>
-                        <ListInlineItem xs="auto"><a href='#'>RSS</a></ListInlineItem>
-                        <ListInlineItem xs="auto"><a href='#'>Toa soan</a></ListInlineItem>
-                        <ListInlineItem xs="auto"><a href='#'>Chinh sach</a></ListInlineItem>
-                    </List>
+                            <ul class="list-unstyled mb-0">
+                                {renedrLinks}
+                            </ul>
+                        </Col>
+                        <Col xs='12' sm="6" md="3">
+                            <h5 class="text-uppercase">Links</h5>
 
-                    <div className="right">
-                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
-                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
-                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
-                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
-                        <p>Tổng biên tập:<strong>Nguyễn Quang Thông</strong></p>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+                            <ul class="list-unstyled mb-0">
+                                {renedrLinks}
+                            </ul>
+                        </Col>
+                    </Row>
+                </section>
+            </Container>
+            <div class="text-center p-3" style={{"background-color": "rgba(0, 0, 0, 0.2)"}}>
+                © 2021 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+        </footer>
     )
 }

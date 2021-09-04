@@ -11,7 +11,7 @@ export default function AddPost(props){
     return (
         <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>
-                <Input type="text" onClick={toggle} placeholder={'Have something to share?'}></Input>
+                <Input type="text" onClick={toggle} placeholder={'Have something in mind?'}></Input>
             </Form>
             <Modal isOpen={modal} toggle={toggle} className>
                 <ModalHeader toggle={toggle}>Modal title</ModalHeader>
