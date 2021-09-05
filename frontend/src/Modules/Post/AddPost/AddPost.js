@@ -8,6 +8,7 @@ export default function AddPost(props){
     const onChangePost = (e) => {
         setPost(e.target.value);
     }
+    
     return (
         <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>

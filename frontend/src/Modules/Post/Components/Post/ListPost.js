@@ -29,6 +29,9 @@ class ListPost extends Component {
             collapse:false,
             cmt:[],
             user:'author unknown',
+            editCmtText:'',
+            Cmtstatus:false,
+            editCmtID:'',
         }
     }
 
@@ -49,6 +52,11 @@ class ListPost extends Component {
         fetch(API)
             .then(response => response.json())
             .then(e=>this.setState({post:e}))
+    }
+            //                  < Author Check >
+    authorCheck=(author)=>{
+        const {user} = this.state;
+        if(user == author){return true}else{return false};
     }
 
     callCmtApi = () => {
@@ -142,40 +150,59 @@ class ListPost extends Component {
 
     AddCmtBtn = (e,data) =>{
         e.preventDefault();
-        const {user} = this.state;
-        console.log('cmt input:', data);
+        const {user,Cmtstatus, editCmtID, editCmtText} = this.state;
         const api = 'http://127.0.0.1:4000/api/comment/comment/create';
-        fetch(api,{
-            method: 'POST',
-            body:JSON.stringify({
-                author:user,
-                text:data,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            }
-        })
-        .then(data=>{
-            this.callCmtApi();
-            this.setState({cmt:data});
-        })
+        if(Cmtstatus){
+            //                      < Edit CMT >
+            // console.log(editCmtID, editCmtText);
+            const api = 'http://127.0.0.1:4000/api/comment/comment/update?id';
+            const id = editCmtID; 
+            fetch(`${api}=${id}`,{
+                method: 'POST',
+                body:JSON.stringify({
+                    "text":data
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+                .then(data=>{
+                    this.callCmtApi();
+                    this.setState({
+                        cmt:data,
+                        Cmtstatus: false, 
+                        editCmtID: '', 
+                        editCmtText:''
+                    });
+                })
+        }else{
+            //                      < Add CMT >
+            fetch(api,{
+                method: 'POST',
+                body:JSON.stringify({
+                    author:user,
+                    text:data,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+                .then(data=>{
+                    this.callCmtApi();
+                    this.setState({cmt:data});
+                })
+        }
     }
 
     EditCmtBtn = (e,i) =>{
         e.preventDefault();
         const {cmt} = this.state;
-        console.log('Edit', i);
-        const api = 'http://127.0.0.1:4000/api/comment/comment/update?id';
-        const id = cmt[i].id;
-        // fetch(`${api}=${id}`,{
-        //     method: 'POST',
-        //     body:JSON.stringify({
-                
-        //     }),
-        //     headers: {
-        //         'Content-type': 'application/json; charset=UTF-8',
-        //     }
-        // })
+        this.setState({
+            editCmtText:cmt[i].text,
+            editCmtID:cmt[i].id,
+            Cmtstatus:true,
+        });
+        // console.log(cmt[i].id, cmt[i].text)
     }
 
     DeleteCmtBtn = (e,i) =>{
@@ -192,7 +219,7 @@ class ListPost extends Component {
     }
 
     render() {
-        let {post, PostStatus, modal, editPostContent, collapse, cmt} = this.state;
+        let {user, post, PostStatus, modal, editPostContent, collapse, cmt, editCmtText} = this.state;
         post = Object.values(post);
         cmt = Object.values(cmt);
         const suggest = 
@@ -213,7 +240,6 @@ class ListPost extends Component {
                     </Container>
                     ))}
                     </Row>
-                    
                 </Container>
             );
 
@@ -252,7 +278,7 @@ class ListPost extends Component {
                         <Col xs={1}>
                             <UncontrolledDropdown inNavbar>
                                 <DropdownToggle nav>
-                                    <span class="material-icons">more_vert</span>
+                                    <span class="material-icons" style={{display: (user==e.author)?'block':'none'}}>more_vert</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem onClick={(e)=>this.toggle(e,i)}>
@@ -271,8 +297,8 @@ class ListPost extends Component {
                     
                     <section>
                         <Collapse isOpen={collapse}>
-                            <CMT EditCmtBtn={this.EditCmtBtn} DeleteCmtBtn={this.DeleteCmtBtn} Cmt={cmt} />
-                            <AddCmt AddCmtBtn={this.AddCmtBtn} />
+                            <CMT user={user} EditCmtBtn={this.EditCmtBtn} DeleteCmtBtn={this.DeleteCmtBtn} Cmt={cmt} />
+                            <AddCmt editCmtText={editCmtText}  AddCmtBtn={this.AddCmtBtn} />
                         </Collapse>    
                     </section>              
                 </Container>
@@ -289,7 +315,7 @@ class ListPost extends Component {
                         <Col xs={5}></Col>
                     
                         <Col className='Addpostbtn'>
-                            <AddPost postEdit={this.postEdit} />
+                            <AddPost PostStatus={this.PostStatus} postEdit={this.postEdit} />
                         </Col>  
 
                         <Col xs={5}></Col>

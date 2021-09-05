@@ -11,7 +11,7 @@ export default function CMT(props){
                 <Col xs={3} >{e.author}</Col>
                 <Col xs={6} >{e.text}</Col>
                 <Col xs={1}>
-                    <UncontrolledDropdown inNavbar>
+                    <UncontrolledDropdown inNavbar  style={{display: (props.user==e.author)?'block':'none'}}>
                         <DropdownToggle nav>
                             <span class="material-icons">more_vert</span>
                         </DropdownToggle>
