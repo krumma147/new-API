@@ -11,7 +11,8 @@ import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
 import SlideShow from '../../SlideShow/slideshow';
 import CMT from '../Cmt/Cmt'
-import AddCmt from '../../AddCmt/AddCmt'
+import AddCmt from '../../AddCmt/AddCmt';
+import PostItem from '../Post/Post';
 
 class ListPost extends Component {
     constructor(props) {
@@ -219,7 +220,7 @@ class ListPost extends Component {
     }
 
     render() {
-        let {user, post, PostStatus, modal, editPostContent, collapse, cmt, editCmtText} = this.state;
+        let {user, post, modal, editPostContent, collapse, cmt, editCmtText} = this.state;
         post = Object.values(post);
         cmt = Object.values(cmt);
         const suggest = 
@@ -258,10 +259,10 @@ class ListPost extends Component {
             </div>
             );
 
-        const Post = post.map((e,i)=>{
-            return(
+        const Post = 
+            (
                 <Container>
-                    <Row key={i} className='post-content'>
+                    {/* <Row key={i} className='post-content'>
                         <Col xs={2}>
                             {e.author}  
                         </Col>
@@ -275,10 +276,10 @@ class ListPost extends Component {
                             <span class="material-icons">comment</span>
                         </Col>
 
-                        <Col xs={1}>
+                        <Col xs={1} style={{display: (user==e.author)?'block':'none'}}>
                             <UncontrolledDropdown inNavbar>
                                 <DropdownToggle nav>
-                                    <span class="material-icons" style={{display: (user==e.author)?'block':'none'}}>more_vert</span>
+                                    <span class="material-icons">more_vert</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem onClick={(e)=>this.toggle(e,i)}>
@@ -293,7 +294,8 @@ class ListPost extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Col>
-                    </Row>
+                    </Row> */}
+                    <PostItem post={post} showCmt={this.showCmt} />
                     
                     <section>
                         <Collapse isOpen={collapse}>
@@ -303,7 +305,6 @@ class ListPost extends Component {
                     </section>              
                 </Container>
             )
-        })
  
         return (
             <Fragment>
@@ -323,7 +324,6 @@ class ListPost extends Component {
 
                     <Row className='PostContainer'>
                         <Col xs={7}>{Post}</Col>
-
                         <Col xs={5}>{suggest}</Col>
                     </Row>
                 </Container>

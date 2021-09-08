@@ -1,7 +1,7 @@
 import { Http } from "../../../Helper/Http";
 
 const API_ENPOINT = {
-    LIST_POST: '/post/post/list',
+    LIST_POST: '/post/list',
     GET_POST: '/post/post/get',
     CREATE_POST: '/post/post/create'
 }

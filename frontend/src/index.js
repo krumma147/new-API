@@ -7,7 +7,7 @@ import './Styles/index.scss';
 import App from './Shared/Components/App/App';
 import Login from './Modules/User/Components/Login';
 
-const isLogged = true;
+const isLogged = false;  //set to false 
 
 const Root = (
   
@@ -19,7 +19,7 @@ const Root = (
             return (!isLogged) ? (
               <Login></Login>
             ) : (
-              <Redirect to="/app/exam" ></Redirect>
+              <Redirect to="/app/post/list" ></Redirect>
             )
           }} ></Route>
           <Route path="/app" render={() => {
