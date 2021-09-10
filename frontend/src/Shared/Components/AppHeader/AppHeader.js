@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { useHistory,withRouter } from "react-router-dom";
 import { Nav, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, } from 'reactstrap';
 import { Col, Row } from 'reactstrap';
 
@@ -23,6 +23,11 @@ class AppHeader extends React.Component {
         this.setState({
             dropdownManageOpen: !this.state.dropdownManageOpen,
         })
+    }
+
+    LogoutBtn = () =>{
+        localStorage.clear();
+        this.props.history.push('/login');
     }
 
     render() {
@@ -49,7 +54,7 @@ class AppHeader extends React.Component {
                                 <DropdownItem>Info</DropdownItem>
                                 <DropdownItem>Change Passworld</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem>Logout</DropdownItem>
+                                <DropdownItem onClick={this.LogoutBtn} >Logout</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </Col>

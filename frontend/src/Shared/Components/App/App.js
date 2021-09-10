@@ -11,7 +11,7 @@ class App extends React.Component {
         const { path } = this.props.match;
         return (
             <div className="App">
-                <AppHeader/>
+                <AppHeader />
                 <AppNav/>
                 <Switch>
                     <Route path={`${path}/exam`} component={Exam} />

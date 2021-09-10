@@ -49,9 +49,6 @@ const AppNav = (props) => {
                     <NavItem>
                         <NavLink href="#">News</NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink href="#">LOGIN</NavLink>
-                    </NavItem>
                     {/* <NavItem>
                         <NavLink href="#">Công Nghệ</NavLink>
                     </NavItem>

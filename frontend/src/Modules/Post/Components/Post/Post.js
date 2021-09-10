@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, UncontrolledDropdown,
     DropdownToggle, DropdownMenu, DropdownItem, Media,Badge
 } from 'reactstrap';
+import Cmt from '../Cmt/Cmt';
 
 export default function PostItem(props){
     const post = props.post;

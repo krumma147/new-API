@@ -1,4 +1,4 @@
-import React, { Suspense, Fragment } from 'react';
+import React, {useState, Suspense, Fragment } from 'react';
 import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 // import './Styles/index.scss';
@@ -7,7 +7,15 @@ import './Styles/index.scss';
 import App from './Shared/Components/App/App';
 import Login from './Modules/User/Components/Login';
 
-const isLogged = false;  //set to false 
+let isLogged = false;  //set to false
+
+// let isLogged = !(localStorage.getItem('user-info').includes('không')?true:false);  //set to false
+
+const SetLogin = () =>{
+  const data = localStorage.getItem('user-info');
+  alert(data);
+  isLogged = !isLogged;
+}
 
 const Root = (
   
@@ -17,14 +25,14 @@ const Root = (
         <Suspense>  
           <Route path="/login" render={() => {
             return (!isLogged) ? (
-              <Login></Login>
+              <Login SetLogin={SetLogin} ></Login>
             ) : (
               <Redirect to="/app/post/list" ></Redirect>
             )
           }} ></Route>
           <Route path="/app" render={() => {
             return (isLogged) ? (
-              <App></App>
+              <App SetLogin={SetLogin}></App>
             ) : (
               <Redirect to="/login" ></Redirect>
             )

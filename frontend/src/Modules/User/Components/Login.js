@@ -12,10 +12,11 @@ import {
    } from 'reactstrap';
 
 //                  Update using media next time
-export default function Login() {
+export default function Login(props) {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const history = useHistory();
+
     const onChangeUserName = (e) =>{
         setUsername(e.target.value);
     }
@@ -24,11 +25,11 @@ export default function Login() {
         setPassword(e.target.value);        
     }
 
-    useEffect(()=>{
-        if(localStorage.getItem('user-info')){
-            alert('pass');
-        }
-    }, [])
+    // useEffect(()=>{
+    //     if(localStorage.getItem('user-info')){
+    //         alert('pass');
+    //     }
+    // }, [])
 
     async function submitBtn(){
         console.log(username, password);
@@ -44,9 +45,11 @@ export default function Login() {
         result = await result.json();
         if(result.includes('không')){
             alert(result);
+            localStorage.clear();
         }else{
-            alert('Welcome')
             localStorage.setItem('user-info',JSON.stringify(result));
+            props.SetLogin();
+            history.push('/app');
         }
         
     }
