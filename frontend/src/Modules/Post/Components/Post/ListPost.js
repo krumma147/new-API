@@ -27,7 +27,6 @@ class ListPost extends Component {
             modal: false,
             editPostContent:'',
             editPostID:'',
-            collapse:false,
             cmt:[],
             user:'author unknown',
             editCmtText:'',
@@ -141,12 +140,6 @@ class ListPost extends Component {
                     modal: !modal,
                 })
             })
-    }
-
-    showCmt = (e,i) =>{
-        const {collapse, cmt} = this.state;
-        this.setState({collapse: !collapse});
-        // console.log(cmt);
     }
 
     AddCmtBtn = (e,data) =>{
@@ -295,14 +288,14 @@ class ListPost extends Component {
                             </UncontrolledDropdown>
                         </Col>
                     </Row> */}
-                    <PostItem post={post} showCmt={this.showCmt} />
+                    <PostItem user={user} cmt={cmt} post={post} showCmt={this.showCmt} />
                     
-                    <section>
+                    {/* <section>
                         <Collapse isOpen={collapse}>
                             <CMT user={user} EditCmtBtn={this.EditCmtBtn} DeleteCmtBtn={this.DeleteCmtBtn} Cmt={cmt} />
                             <AddCmt editCmtText={editCmtText}  AddCmtBtn={this.AddCmtBtn} />
                         </Collapse>    
-                    </section>              
+                    </section>               */}
                 </Container>
             )
  

@@ -7,13 +7,11 @@ import './Styles/index.scss';
 import App from './Shared/Components/App/App';
 import Login from './Modules/User/Components/Login';
 
-let isLogged = false;  //set to false
+let isLogged = true;  //set to false
 
 // let isLogged = !(localStorage.getItem('user-info').includes('không')?true:false);  //set to false
 
 const SetLogin = () =>{
-  const data = localStorage.getItem('user-info');
-  alert(data);
   isLogged = !isLogged;
 }
 
