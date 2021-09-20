@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, UncontrolledDropdown,Collapse,
-    DropdownToggle, DropdownMenu, DropdownItem, Media,Badge, 
+    DropdownToggle, DropdownMenu, DropdownItem, Media,Badge,
+    Modal, ModalHeader, ModalBody, Input, ModalFooter, Button
 } from 'reactstrap';
 import CMT from '../Cmt/Cmt';
 import AddCmt from '../../AddCmt/AddCmt'
@@ -15,6 +16,45 @@ export default function PostItem(props){
     const showCmt = () =>{
         setcollapse(!collapse);
     } 
+
+    const [modal,setmodal] =useState(false);
+    const [editPostContent,seteditPostContent] = useState('');
+
+    const onchangeEditPost=(e)=>{
+        seteditPostContent(e.target.value);
+    }
+
+    const toggle = () =>{
+        setmodal(!modal);
+    }
+
+    const EditPostBtn = (e,i) =>{
+        // const {post} = this.state;
+        // const content = post[i].content;
+        // const id = post[i].id;
+        // const author = post[i].author;
+        console.log(i);
+        // this.setState({
+        //     editPostContent: content,
+        //     editPostID:id,
+        //     editPostAuthor:author,
+        // })
+    }
+
+    const editPostForm = (
+        <div>
+            <Modal isOpen={modal} toggle={toggle} className>
+                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                <ModalBody>
+                    <Input type="textarea" placeholder={'Something you want to share'} name="post-edit" defaultValue={editPostContent} onChange={e=>onchangeEditPost(e)} rows={5} />
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={e=>props.submitChange(e)}>Submit</Button>
+                    <Button color="secondary" onClick={toggle}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+        </div>
+        );
 
     const PostItem = post.map((e,i)=>{
         return (
@@ -33,7 +73,7 @@ export default function PostItem(props){
                                                 <span class="material-icons">more_vert</span>
                                             </DropdownToggle>
                                             <DropdownMenu right>
-                                                <DropdownItem onClick>
+                                                <DropdownItem onClick={EditPostBtn(e,i)}>
                                                     <span class="material-icons">edit</span>
                                                 </DropdownItem>
                                                         
@@ -69,10 +109,11 @@ export default function PostItem(props){
 
                 <section>
                         <Collapse isOpen={collapse}>
-                            <CMT user EditCmtBtn DeleteCmtBtn Cmt={cmt} />
+                            <CMT user={user} EditCmtBtn DeleteCmtBtn Cmt={cmt} />
                             <AddCmt editCmtText  AddCmtBtn />
                         </Collapse>    
                 </section>
+                {editPostForm}
             </Container>
         )
     })

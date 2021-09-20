@@ -5,7 +5,7 @@ import { Container, Row, Col,UncontrolledDropdown,
     DropdownMenu,
     DropdownItem,
     Modal, ModalHeader, ModalBody, Input, ModalFooter, Button, Badge,
-    Collapse
+    Collapse, Media
 } from 'reactstrap';
 import './ListPost.scss'
 import AddPost from '../../AddPost/AddPost';
@@ -32,6 +32,7 @@ class ListPost extends Component {
             editCmtText:'',
             Cmtstatus:false,
             editCmtID:'',
+            collapse:false,
         }
     }
 
@@ -212,6 +213,13 @@ class ListPost extends Component {
             })
     }
 
+    showCmt = (e,i) =>{
+        const {collapse, cmt} = this.state;
+        this.setState({collapse: !collapse});
+        // console.log(cmt);
+    }
+
+
     render() {
         let {user, post, modal, editPostContent, collapse, cmt, editCmtText} = this.state;
         post = Object.values(post);
@@ -252,10 +260,10 @@ class ListPost extends Component {
             </div>
             );
 
-        const Post = 
-            (
+        const Post = post.map((e,i)=>{
+            return (
                 <Container>
-                    {/* <Row key={i} className='post-content'>
+                    <Row key={i} className='post-content'>
                         <Col xs={2}>
                             {e.author}  
                         </Col>
@@ -287,17 +295,18 @@ class ListPost extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Col>
-                    </Row> */}
-                    <PostItem user={user} cmt={cmt} post={post} showCmt={this.showCmt} />
+                    </Row>
                     
-                    {/* <section>
+                    <Media>
                         <Collapse isOpen={collapse}>
                             <CMT user={user} EditCmtBtn={this.EditCmtBtn} DeleteCmtBtn={this.DeleteCmtBtn} Cmt={cmt} />
                             <AddCmt editCmtText={editCmtText}  AddCmtBtn={this.AddCmtBtn} />
                         </Collapse>    
-                    </section>               */}
+                    </Media>              
                 </Container>
             )
+        })
+            
  
         return (
             <Fragment>
@@ -317,6 +326,7 @@ class ListPost extends Component {
 
                     <Row className='PostContainer'>
                         <Col xs={7}>{Post}</Col>
+                        {/* <PostItem user={user} cmt={cmt} post={post} showCmt={this.showCmt} /> */}
                         <Col xs={5}>{suggest}</Col>
                     </Row>
                 </Container>
